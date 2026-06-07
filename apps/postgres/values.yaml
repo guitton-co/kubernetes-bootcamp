@@ -1,0 +1,31 @@
+# These values are intentionally simple. Open the templates/ folder to see
+# exactly which Kubernetes objects each value drives. Nothing is hidden.
+image:
+  repository: postgres
+  tag: "16"
+  pullPolicy: IfNotPresent
+
+# Demo credentials only. For a real project, use a Secret you do not commit.
+auth:
+  database: airflow
+  username: airflow
+  password: airflow
+
+persistence:
+  enabled: true
+  storageClass: ""        # "" = cluster default StorageClass
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+service:
+  # Airflow connects to this name. Keep it in sync with airflow-values.yaml.
+  name: postgres-service
+  port: 5432
+
+resources: {}
+  # Uncomment on a small cluster to keep Postgres polite:
+  # requests:
+  #   cpu: 100m
+  #   memory: 256Mi
+  # limits:
+  #   memory: 512Mi

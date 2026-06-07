@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv/
+
+# Airflow local artifacts
+apache-airflow/airflow/
+airflow.db
+logs/
+
+# Local kubeconfigs / secrets — never commit these
+k3s.yaml
+kubeconfig*
+*.pem
+
+# DuckDB / data scratch
+*.duckdb
+/tmp/iceberg_warehouse/

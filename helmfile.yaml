@@ -1,0 +1,33 @@
+# Declarative install of the whole data stack. One command instead of a
+# fragile sequence of `helm install` lines:
+#
+#   helmfile sync
+#
+# Tear it all down with:
+#
+#   helmfile destroy
+
+repositories:
+  - name: apache-airflow
+    url: https://airflow.apache.org
+
+releases:
+  - name: postgres
+    namespace: data
+    createNamespace: true
+    chart: ./apps/postgres
+    values:
+      - ./apps/postgres/values.yaml
+
+  - name: airflow
+    namespace: data
+    createNamespace: true
+    chart: apache-airflow/airflow
+    # Pin a version for reproducibility. Find current ones with:
+    #   helm repo add apache-airflow https://airflow.apache.org && helm repo update
+    #   helm search repo apache-airflow/airflow --versions
+    # version: "1.18.0"
+    needs:
+      - data/postgres
+    values:
+      - ./examples/data-pipeline/airflow-values.yaml

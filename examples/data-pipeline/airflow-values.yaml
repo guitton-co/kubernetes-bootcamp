@@ -1,0 +1,41 @@
+# Airflow values for the bootcamp data-pipeline example.
+# We deploy the official apache-airflow/airflow chart (writing your own
+# Airflow chart would be madness) and point it at the Postgres WE deployed.
+#
+# Contrast with apps/postgres: simple thing -> write the chart yourself;
+# complex thing -> use a community chart and learn its values.
+
+# DEMO secrets only. Generate your own for anything real:
+#   python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+fernetKey: aERBZE5MN3E0TjRjU2xzQWxCdTNIUks0WGFTZThoWXc=
+webserverSecretKey: aERBZE5MN3E0TjRjU2xzQWxCdTNIUks0WGFTZThoWXc=
+
+# Use the Postgres we manage in apps/postgres instead of the chart's bundled one.
+postgresql:
+  enabled: false
+
+data:
+  metadataConnection:
+    user: airflow
+    pass: airflow
+    protocol: postgresql
+    host: postgres-service   # matches apps/postgres/values.yaml service.name
+    port: 5432
+    db: airflow
+    sslmode: disable
+
+# On a small local cluster, LocalExecutor avoids running Redis + Celery workers.
+# Comment this out to fall back to the chart default (CeleryExecutor).
+executor: LocalExecutor
+
+# Sync DAGs straight from YOUR fork of this repo — no image rebuilds to iterate.
+# Replace <your-username> after you accept the GitHub Classroom assignment.
+dags:
+  gitSync:
+    enabled: true
+    repo: https://github.com/<your-username>/k8s-kata.git
+    branch: main
+    rev: HEAD
+    depth: 1
+    maxFailures: 0
+    subPath: "examples/data-pipeline/dags"
