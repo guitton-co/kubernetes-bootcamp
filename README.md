@@ -36,10 +36,11 @@ Questions between sessions go in the dedicated Slack channel.
 
 ## The two worked examples
 
-| Example | For whom | What it teaches |
-|---|---|---|
-| [`examples/data-pipeline/`](examples/data-pipeline/) | data / analytics | Run Airflow on K8s, backed by a Postgres **you deployed**, with DAGs synced from your repo |
-| [`examples/web-service/`](examples/web-service/) | full-stack | Containerise a FastAPI app and expose it with a Deployment, Service, and Ingress |
+| Example                                              | For whom           | What it teaches                                                                            |
+| ---------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------ |
+| [`examples/data-pipeline/`](examples/data-pipeline/) | data / analytics   | Run Airflow on K8s, backed by a Postgres **you deployed**, with DAGs synced from your repo |
+| [`examples/web-service/`](examples/web-service/)     | full-stack         | Containerise a FastAPI app and expose it with a Deployment, Service, and Ingress           |
+| [`examples/nextjs-app/`](examples/nextjs-app/)       | full-stack (JS/TS) | Containerise a Next.js app (standalone build) and expose it on the cluster                 |
 
 Both are starting points to copy and bend toward your own project — not the
 project itself.
@@ -77,6 +78,7 @@ the official community chart, because some things you shouldn't write yourself.
 ├── apps/postgres/             # a Postgres Helm chart you can fully read
 ├── examples/
 │   ├── data-pipeline/         # Airflow + your DAGs
-│   └── web-service/           # FastAPI + Deployment/Service/Ingress
+│   ├── web-service/           # FastAPI + Deployment/Service/Ingress
+│   └── nextjs-app/            # Next.js (standalone) + Deployment/Service/Ingress
 └── docs/lens.md               # the visual debugging cheatsheet
 ```

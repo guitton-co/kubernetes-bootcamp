@@ -8,17 +8,17 @@ looking, not by memorising `kubectl`. Here's the workflow.
 1. **Workloads → Pods** — is it `Running`? `Pending`? `CrashLoopBackOff`?
 2. **Workloads → Deployments** — desired vs available replicas.
 3. **Network → Services** — what's exposed, and does it have endpoints?
-4. **Events** (Pod detail, bottom) — Kubernetes narrates *why* things fail here.
+4. **Events** (Pod detail, bottom) — Kubernetes narrates _why_ things fail here.
 5. **Logs** (Pod → log icon) — stream stdout/stderr, multiple containers at once.
 
 ## Debugging a broken workload, visually
 
-| Symptom | Where to look | Usual cause |
-|---|---|---|
-| `Pending` forever | Pod → Events | no node resources, or unbound PVC |
-| `ImagePullBackOff` | Pod → Events | wrong image name/tag, or private registry |
-| `CrashLoopBackOff` | Pod → Logs | app erroring on startup (bad config/env) |
-| Service returns nothing | Service → Endpoints | selector labels don't match Pod labels |
+| Symptom                 | Where to look       | Usual cause                               |
+| ----------------------- | ------------------- | ----------------------------------------- |
+| `Pending` forever       | Pod → Events        | no node resources, or unbound PVC         |
+| `ImagePullBackOff`      | Pod → Events        | wrong image name/tag, or private registry |
+| `CrashLoopBackOff`      | Pod → Logs          | app erroring on startup (bad config/env)  |
+| Service returns nothing | Service → Endpoints | selector labels don't match Pod labels    |
 
 A Service with **zero endpoints** is the classic silent failure: the Service
 selector and the Pod labels have drifted apart. Lens shows this at a glance;
@@ -33,6 +33,6 @@ the CLI makes you cross-reference two `get` commands.
 
 ## When NOT to use Lens
 
-Lens is for *seeing* and *debugging*. For anything repeatable — installing the
+Lens is for _seeing_ and _debugging_. For anything repeatable — installing the
 stack, applying manifests — stay declarative (`helmfile sync`, `kubectl apply`)
 so it's reproducible and reviewable. Look in Lens; change in Git.

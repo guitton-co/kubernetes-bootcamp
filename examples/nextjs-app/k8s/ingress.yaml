@@ -1,0 +1,21 @@
+# Optional. No Ingress controller? Skip this and use:
+#   kubectl -n nextjs port-forward svc/nextjs 3000:80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextjs
+  labels:
+    app: nextjs
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: nextjs.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nextjs
+                port:
+                  number: 80

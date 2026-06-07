@@ -13,7 +13,7 @@ auth:
 
 persistence:
   enabled: true
-  storageClass: ""        # "" = cluster default StorageClass
+  storageClass: "" # "" = cluster default StorageClass
   accessMode: ReadWriteOnce
   size: 10Gi
 

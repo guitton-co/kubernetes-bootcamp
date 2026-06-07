@@ -8,10 +8,6 @@ dependencies = []
 
 # Dev deps let you author/lint DAGs locally before they run in the cluster.
 [dependency-groups]
-dev = [
-    "apache-airflow>=3.1.0",
-    "pandas>=2.3.2",
-    "requests>=2.32.5",
-]
+dev = ["apache-airflow>=3.1.0", "pandas>=2.3.2", "requests>=2.32.5"]
 
 # The web example pins its own deps in examples/web-service/Dockerfile.

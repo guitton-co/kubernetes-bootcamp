@@ -8,13 +8,13 @@ IDE to look at it.
 
 ## 1. Command-line tools
 
-| Tool | What it's for | Install |
-|---|---|---|
-| `git` | clone your fork | preinstalled on most systems |
-| `uv` | Python + deps (for the data example) | https://docs.astral.sh/uv/getting-started/installation/ |
-| `kubectl` | talk to the cluster | https://kubernetes.io/docs/tasks/tools/ |
-| `helm` | install charts | https://helm.sh/docs/intro/install/ |
-| `helmfile` | one-command stack install | https://github.com/helmfile/helmfile/releases |
+| Tool       | What it's for                        | Install                                                 |
+| ---------- | ------------------------------------ | ------------------------------------------------------- |
+| `git`      | clone your fork                      | preinstalled on most systems                            |
+| `uv`       | Python + deps (for the data example) | https://docs.astral.sh/uv/getting-started/installation/ |
+| `kubectl`  | talk to the cluster                  | https://kubernetes.io/docs/tasks/tools/                 |
+| `helm`     | install charts                       | https://helm.sh/docs/intro/install/                     |
+| `helmfile` | one-command stack install            | https://github.com/helmfile/helmfile/releases           |
 
 On macOS with Homebrew this is just:
 
@@ -37,7 +37,7 @@ is underpowered or you want something closer to production.
 
 Any of these gives you a one-node cluster:
 
-- **Docker Desktop** → Settings → Kubernetes → *Enable Kubernetes*.
+- **Docker Desktop** → Settings → Kubernetes → _Enable Kubernetes_.
 - **kind**: `kind create cluster --name bootcamp`
 - **k3d**: `k3d cluster create bootcamp`
 
