@@ -33,7 +33,7 @@ executor: LocalExecutor
 dags:
   gitSync:
     enabled: true
-    repo: https://github.com/<your-username>/k8s-kata.git
+    repo: https://github.com/<your-username>/kubernetes-bootcamp.git
     branch: main
     rev: HEAD
     depth: 1
