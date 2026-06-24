@@ -15,6 +15,7 @@ grep -rn "<your-username>" .        # find every placeholder you must set
 ```
 
 Replace `<your-username>` in:
+
 - `examples/data-pipeline/airflow-values.yaml` (gitSync repo)
 - `examples/web-service/k8s/deployment.yaml` (image)
 - `examples/nextjs-app/k8s/deployment.yaml` (image)
@@ -35,6 +36,7 @@ kubectl -n data get pods -w          # everything → Running / Completed
 ```
 
 Checks:
+
 - [ ] `postgres` pod Running; `pg_isready` probe passing
 - [ ] `airflow-*` pods Running (api-server, scheduler, dag-processor)
 - [ ] DAG `example_pipeline` shows up (gitSync pulled it from your fork)
