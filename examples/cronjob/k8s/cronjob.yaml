@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+  labels:
+    app: hello
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      ttlSecondsAfterFinished: 600
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: hello
+              image: busybox:1.37
+              command:
+                - sh
+                - -c
+                - 'date -Iseconds && echo "hello from $POD_NAME on $(uname -n)"'
+              env:
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  memory: 32Mi
