@@ -18,6 +18,12 @@ spec:
         - name: nextjs
           # Build & push your image first, then set this. See the README.
           image: ghcr.io/<your-username>/k8s-kata-nextjs:latest
+          env:
+            # Surface the pod name to the app (downward API).
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           ports:
             - name: http
               containerPort: 3000

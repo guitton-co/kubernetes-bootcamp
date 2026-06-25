@@ -91,6 +91,17 @@ and you should see your node and (after `helmfile sync`) your Pods.
 > Avoid OpenLens — as of 2026 it's effectively unmaintained; FreeLens is its
 > active successor.
 
+## Two gotchas that bite once and waste an hour
+
+- **Your fork must be public.** Airflow's gitSync uses HTTPS without credentials.
+  Private fork → init container crash loop with "Repository not found".
+- **Apple Silicon → cloud cluster: build images for amd64.** A plain
+  `docker build` on M1/M2/M3 produces an arm64 image. Cloud nodes (DO, EKS,
+  GKE) run amd64 and reject it with `exec format error`. Use buildx:
+  ```sh
+  docker buildx build --platform linux/amd64 -t ghcr.io/<you>/<img>:latest --push .
+  ```
+
 ## You're ready when
 
 ```sh

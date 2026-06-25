@@ -30,6 +30,9 @@ executor: LocalExecutor
 
 # Sync DAGs straight from YOUR fork of this repo — no image rebuilds to iterate.
 # Replace <your-username> after you accept the GitHub Classroom assignment.
+# Your fork MUST be public (gitSync uses HTTPS without creds). If it's private,
+# the dag-processor / scheduler / triggerer init container will CrashLoopBackOff
+# with "Repository not found. Authentication failed."
 dags:
   gitSync:
     enabled: true

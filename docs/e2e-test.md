@@ -45,7 +45,7 @@ Checks:
 ```sh
 # UI (Airflow 3 = api-server)
 kubectl -n data port-forward svc/airflow-api-server 8080:8080
-kubectl -n data logs deploy/airflow-api-server | grep -i password   # admin pw
+# Default chart credentials: admin / admin (printed in the helm install NOTES).
 ```
 
 ## Pass 2 — FastAPI app

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <main
@@ -13,7 +15,7 @@ export default function Home() {
     >
       <h1>Hello from Next.js on Kubernetes 🚀</h1>
       <p>
-        Served by pod: <code>{process.env.HOSTNAME ?? "unknown"}</code>
+        Served by pod: <code>{process.env.POD_NAME ?? "unknown"}</code>
       </p>
     </main>
   );
