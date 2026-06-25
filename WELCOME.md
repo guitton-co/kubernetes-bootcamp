@@ -20,25 +20,34 @@ _(Fill the links in before sending.)_
 
 ## Then set up your environment
 
-1. **Accept the GitHub Classroom assignment** → you get your own private fork
-   of `k8s-kata`.
+1. **Accept the GitHub Classroom assignment** → you get your own fork of
+   `kubernetes-bootcamp`. **Set it to public** (your fork must be public or
+   Airflow's gitSync will refuse to pull your DAGs).
 2. **Install the tools** — follow [`SETUP.md`](SETUP.md) §1 (uv, kubectl, helm,
-   helmfile).
-3. **Get a cluster** — [`SETUP.md`](SETUP.md) §2 (local Docker Desktop / kind /
-   k3d is simplest).
+   helmfile, Docker).
+3. **Connect to the shared cohort cluster** — you do _not_ need a local
+   Kubernetes. Louis is sharing a managed cluster on Digital Ocean:
+   ```sh
+   # Save the attached kubeconfig somewhere safe, then:
+   export KUBECONFIG=/path/to/k8s-bootcamp-guittonco-2026-06-kubeconfig.yaml
+   kubectl get nodes        # should show 3 Ready nodes
+   ```
+   **Namespace rule (important):** the cluster is shared with the rest of the
+   cohort. Every namespace you create must be suffixed with your GitHub handle
+   (`web-<handle>`, `data-<handle>`, etc.) — see Session 1.
 4. **Connect a visual IDE** — [`SETUP.md`](SETUP.md) §3 (FreeLens recommended).
+   Point it at the same kubeconfig.
 5. **Replace `<your-username>`** in the three files flagged in the repo README
    (your fork's gitSync repo and the two app images).
 
 ## You're ready when
 
 ```sh
-kubectl get nodes        # a Ready node
-helmfile sync            # Postgres + Airflow come up in the 'data' namespace
-kubectl -n data get pods # pods moving to Running
+kubectl get nodes                          # 3 Ready nodes on the shared cluster
+kubectl get ns | grep <your-github-handle> # nothing yet — you'll create your own in Session 1
 ```
 
-…and you can see those Pods in FreeLens/Lens.
+…and you can see the cluster in FreeLens/Lens.
 
 ## Before the first session, think about your project
 
