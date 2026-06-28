@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broken-probe
+  labels:
+    app: broken-probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broken-probe
+  template:
+    metadata:
+      labels:
+        app: broken-probe
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/louisguitton/k8s-kata-web:latest
+          ports:
+            - name: http
+              containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /this-route-does-not-exist
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi

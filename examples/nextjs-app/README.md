@@ -13,34 +13,30 @@ npm run dev        # http://localhost:3000
 
 ## Build & push the image
 
+> On Apple Silicon (M1/M2/M3), build for `linux/amd64` — the cohort cluster
+> nodes are amd64.
+
 ```sh
 cd examples/nextjs-app
-docker build -t ghcr.io/<your-username>/k8s-kata-nextjs:latest .
-docker push ghcr.io/<your-username>/k8s-kata-nextjs:latest
+docker buildx build --platform linux/amd64 \
+  -t ghcr.io/<your-username>/k8s-kata-nextjs:latest --push .
 ```
 
 Then set that image name in `k8s/deployment.yaml`.
 
-> On kind/k3d you can skip the registry:
-> `docker build -t k8s-kata-nextjs:latest .`
-> `kind load docker-image k8s-kata-nextjs:latest` (use that name in the manifest).
-
 ## Deploy
 
 ```sh
-kubectl create namespace nextjs
-kubectl -n nextjs apply -f k8s/
-kubectl -n nextjs get pods
+export HANDLE=<your-github-handle>
+kubectl create namespace nextjs-$HANDLE
+kubectl -n nextjs-$HANDLE apply -f k8s/
+kubectl -n nextjs-$HANDLE get pods
 ```
 
 ## Reach it
 
-With an Ingress controller: http://nextjs.localhost
-
-Without one (simplest):
-
 ```sh
-kubectl -n nextjs port-forward svc/nextjs 3000:80
+kubectl -n nextjs-$HANDLE port-forward svc/nextjs 3000:80
 # open http://localhost:3000
 ```
 

@@ -1,20 +1,17 @@
 # Example: Data pipeline (Airflow on Kubernetes)
 
-Runs the official Airflow chart against the Postgres you deploy from
-`apps/postgres`, with DAGs synced straight from your fork.
+Runs the official Airflow chart against the Postgres deployed from
+`apps/postgres`, with DAGs synced straight from a fork of this repo.
 
-## Deploy
+> **For the cohort: this stack is deployed once, into the shared `data`
+> namespace, by Louis. Don't `helmfile sync` it into your own namespace —
+> Airflow on this cluster is expensive (~6 Pods, ~1 GB) and we don't have
+> headroom for 7 copies.** Use the shared instance as a reference and as a
+> place to drop your own DAGs (see "Add your own DAGs" below).
 
-```sh
-# from the repo root
-helmfile sync
-kubectl -n data get pods -w
-```
+## See the (shared) Airflow UI
 
-## See the Airflow UI
-
-In Airflow 3 the webserver is the **API server**, so the service is
-`airflow-api-server`:
+In Airflow 3 the webserver is the **API server**:
 
 ```sh
 kubectl -n data port-forward svc/airflow-api-server 8080:8080
@@ -23,16 +20,21 @@ kubectl -n data port-forward svc/airflow-api-server 8080:8080
 
 …or right-click the service in Lens/FreeLens → *port-forward*.
 
-> Airflow 3 no longer ships a fixed `admin/admin` login. The simple auth
-> manager prints a generated password on first start — grab it from the
-> api-server pod logs:
-> `kubectl -n data logs deploy/airflow-api-server | grep -i password`
+Default credentials: `admin` / `admin` (chart NOTES print this).
 
-## Make it yours
+## Add your own DAGs
 
-1. Edit `airflow-values.yaml`: set `dags.gitSync.repo` to **your** fork.
-2. Drop your DAGs in `dags/` (replace `example_pipeline.py`).
-3. `helmfile sync` again — gitSync pulls your changes, no image rebuild.
+Drop a `.py` file in this repo's `examples/data-pipeline/dags/` and push to
+your fork. gitSync currently points at Louis's fork; for the cohort, raise a
+PR on the main repo and once merged the shared instance will pick it up.
 
-Swap the toy DAG for a dlt source, a SQLMesh run, a DuckDB transform — whatever
-you pitched.
+## Run it standalone (post-cohort, on your own cluster)
+
+```sh
+# from the repo root, against YOUR cluster, NOT the shared cohort one
+helmfile sync
+kubectl -n data get pods -w
+```
+
+Then edit `airflow-values.yaml` to point `dags.gitSync.repo` at your fork.
+Swap the toy DAG for a dlt source, a SQLMesh run, a DuckDB transform.

@@ -15,6 +15,8 @@ the Slack channel; setup snags are exactly what it's for.
 | GitHub Classroom assignment (your fork) | _<classroom link>_ | ☐ |
 | Payment (€149, Qonto) | _<payment link>_ | ☐ |
 | Live session slots (2 × 30 min, Google Meet) | _<calendar link>_ | ☐ |
+| Shared cluster kubeconfig (attached to this email) | `k8s-bootcamp-guittonco-2026-06-kubeconfig.yaml` | ☐ |
+| Session recordings (Google Drive) | _<drive folder URL>_ | — |
 
 _(Fill the links in before sending.)_
 
@@ -52,5 +54,18 @@ kubectl get ns | grep <your-github-handle> # nothing yet — you'll create your 
 ## Before the first session, think about your project
 
 It's a free project — pick something **you** want to run on Kubernetes (a dlt
-pipeline, a SQLMesh project, a Marimo app, a service…). Open a PR with the
-proposal template and Louis will confirm scope. Two or three lines is enough.
+pipeline, a SQLMesh project, a Marimo app, a service, a bot…). See
+[`docs/project-ideas.md`](docs/project-ideas.md) for 5 seed projects if nothing
+springs to mind. Open a PR with the proposal template and Louis will confirm
+scope. Two or three lines is enough. **Due Mon 6 Jul.**
+
+## How support works (async)
+
+- **Slack `#help` is the only channel.** No synchronous office hours.
+- **SLA: 24h, M–F.** Often same-day, not promised.
+- Louis can `gh classroom clone` your project and inspect your namespace on
+  the shared cluster directly — most triage doesn't need a call.
+- Use `@here` only when you're truly blocked. Otherwise just post in the
+  channel — others will hit the same things and benefit from the thread.
+- Sessions are recorded (Google Drive folder linked above). Catch up async if
+  you miss one.
