@@ -91,28 +91,36 @@ the shared cluster. Slack `#help` is the support channel.
 
 ---
 
-## Session 2 — Your projects, the K8s patterns they need (30 min)
+## Session 2 — Reference implementations + async-week contract (45 min, 2026-07-23)
 
-**Built from project proposals.** Pre-session work (Mon 6 Jul – Wed 15 Jul):
+**Pivoted to walkthrough-only** — none of the students except Emeric
+shipped anything before the postponed S2 date, so the "each student
+demos their proposal" format is impossible. Instead, Louis walks the
+room through the 4 reference deploys he built during S2 prep + hands
+each student a per-project async-week contract.
 
-1. Read every proposal PR. Identify the K8s pattern each one needs.
-2. Group projects by pattern. Common buckets to expect:
-   - **Web service** → Deployment + Service + Ingress (covered in S1 already → recap only)
-   - **Scheduled job** → CronJob + concurrency/TTL patterns
-   - **Stateful** → PVC + StatefulSet (Postgres in `apps/postgres` is the reference)
-   - **Async pipeline** → Helm chart consumption (Airflow in `examples/data-pipeline`)
-   - **Multi-service** → Service-to-Service networking, ConfigMap/Secret injection
-3. Pick 2–3 pattern blocks to cover live. Leave the rest as repo pointers + Slack.
-4. Order: pattern demo → live edit → student-project mapping.
+**Structure:** private block-by-block outline lives at
+`docs/louis/2026-07-22-S2-session/S2-outline.md` (not shared with
+students). Cheatsheet + per-student handoffs live in the same folder.
 
-| Min   | Topic                            | Source (fill after proposals land)                                                                     |
-| ----- | -------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| 0–3   | **Recap S1 + map the cohort**    | 1-slide: project list grouped by pattern. "Here's what we need to cover for your projects."            |
-| 3–10  | **Pattern block 1**              | _TBD from proposals_ — e.g. Ingress + TLS, CronJob, StatefulSet                                        |
-| 10–17 | **Pattern block 2**              | _TBD from proposals_                                                                                   |
-| 17–22 | **Pattern block 3 OR Helm deep** | If 3+ projects use community charts: contrast hand-written `apps/postgres` vs `apache-airflow/airflow` |
-| 22–28 | **Student demos**                | Each student: 30s screen-share of their project running in Lens. State 1 thing that fought them.       |
-| 28–30 | **Wrap + async**                 | Slack stays open after the cohort. No synchronous office hours — everything async in `#help`.          |
+**Rough shape (kept public for orientation):**
+
+- Welcome + reality check (3 min)
+- Emeric case-study + PR review (8 min)
+- Kreuzberg + Nao — Latif coverage: doc extraction Helm chart + chatbot single-container YAML, both single container / one Secret (8 min)
+- Tambo — Max coverage: stateful multi-service pattern B (Postgres StatefulSet + PVC + API + Web + migrations) (7 min)
+- SQLMesh — Carole coverage: cross-ns Service DNS pattern C + CronJob-with-state pattern C2 (7 min)
+- Per-student handoffs + post-session timeline + Q&A (10 min)
+
+**Session recording** lands in the Drive folder (link in Slack).
+
+**Post-session timeline** (read in the meeting, repeated here for
+reference):
+
+- **2026-07-23 → 2026-07-31:** 24h Slack SLA on `#help`. Recommended demo window.
+- **2026-08-01 → 2026-08-15:** Slack + GitHub PR replies still work, no SLA.
+- **2026-08-15:** cluster teardown. Archive anything you want to keep.
+- **After:** Slack + PR replies continue indefinitely; no live cluster.
 
 **Stretch patterns that might appear (kept inline, not in S1):**
 
@@ -129,7 +137,7 @@ the shared cluster. Slack `#help` is the support channel.
 
 ---
 
-## Async week between sessions (Mon 6 – Thu 16 Jul)
+## Async week between sessions (Mon 6 – Wed 22 Jul, extended from original Wed 16 Jul)
 
 - Students iterate on their project in their own namespaces.
 - Louis on Slack `#help`, M–F, **24h SLA, intra-day best-effort**. No
@@ -139,6 +147,13 @@ the shared cluster. Slack `#help` is the support channel.
 - `@here` only when truly blocked. Default to channel post.
 - By end-of-week each project should have: namespace + Deployment(s) +
   Service + at least one of (Ingress | CronJob | PVC | ConfigMap).
+
+## Post-S2 async (2026-07-23 → 2026-08-15)
+
+Same rules as above through 2026-07-31 (24h SLA on `#help` + PR
+mentions). After 2026-08-01 the SLA drops; Slack + PR replies still
+happen but may take days. **Cluster tears down 2026-08-15** — archive
+anything you want to keep before then.
 
 ## References (for your S2 prep, not for sharing)
 
